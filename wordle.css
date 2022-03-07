@@ -53,14 +53,14 @@ hr {
     background-color: #C9B458;
     color: white;
     border-color: white;
-    transition-duration: 1s;
+    transition-duration: 0.5s;
 }
 
 .absent {
     background-color: #8d8f91;
     color: white;
     border-color: white;
-    transition-duration: 1s;
+    transition-duration: 0.5s;
 }
 
 .invalid {

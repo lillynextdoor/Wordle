@@ -18,8 +18,11 @@ function initialize() {
     const options = {
     method: 'GET',
     url: 'https://wordsapiv1.p.rapidapi.com/words/',
-    params: {random: 'true',
-             letters: '5'},
+    params: {
+        random: 'true',
+        lettersMin: '5',
+        lettersMax: '5'
+        },
     headers: {
         'x-rapidapi-host': 'wordsapiv1.p.rapidapi.com',
         'x-rapidapi-key': 'c0f74f441cmsh567cad65aabece8p1aad19jsn4142e09a557d'
@@ -29,7 +32,7 @@ function initialize() {
     axios.request(options).then(function (response) {
         // set today's word
         todaysWord = response.data.word.toUpperCase();
-        console.log('오늘의 단어', todaysWord)
+        console.log("today's word is >", todaysWord)
     }).catch(function (error) {
         console.error(error);
     });
@@ -65,7 +68,7 @@ function initialize() {
                 if (currTile.innerText === "") {
                     currTile.innerText = e.code[3]; // e.code returns 4 character string (KeyA). "A" is at index 3
                     col += 1; // move to next tile 
-                    currWord += e.code[3] // set current word
+                    currWord += e.code[3]; // set current word
                 }
             }
         }
@@ -73,19 +76,19 @@ function initialize() {
         else if (e.code === "Backspace") {
             if (0 < col && col <= width) {
                 col -= 1;
-                currWord = currWord.slice(0, -1) // edit current word
+                currWord = currWord.slice(0, -1); // edit current word
             }
             let currTile = document.getElementById(row.toString() + '-' + col.toString());
             currTile.innerText = "";
         }
 
         else if (e.code === "Enter" && col === width) {
-            isValid(currWord, todaysWord)
+            isValid(currWord, todaysWord);
         }
 
         if (!gameOver && row === height) {
             gameOver = true;
-            document.getElementById("answer").innerText = word;
+            document.getElementById("answer").innerText = todaysWord;
         }
     })
     
@@ -106,10 +109,10 @@ function isValid(checkWord, todaysWord) {
     axios.request(options).then(function (response) {
         // if the word exist in the dictionary
         if (response.data.results.total === 1) {
-            update(todaysWord)
+            update(todaysWord);
             row += 1; // start a new row
             col = 0;  // start at 0 for new word
-            currWord = "";
+            currWord = ""; // initialize current word
         } else {
             let currRow = document.getElementById("row" + row.toString())
             currRow.classList.add("invalid")
@@ -119,18 +122,24 @@ function isValid(checkWord, todaysWord) {
     });
 };
 
-function update(word) {
+function update(todaysWord) {
     let correct = 0;
+    let word = todaysWord
     for (let c = 0; c < width; c++) {
         let currTile = document.getElementById(row.toString() + '-' + c.toString());
         let letter = currTile.innerText;
+        let index = 0;
 
         // is it in the right position?
         if (word[c] === letter) {
+            index = word.indexOf(letter)
+            word = word.slice(0, index) + '0' + word.slice(index + 1)
             currTile.classList.add("correct");
             correct += 1;
         } // is it in the word? 
         else if (word.includes(letter)) {
+            index = word.indexOf(letter)
+            word = word.slice(0, index) + '0' + word.slice(index + 1)
             currTile.classList.add("present");
         } // not in the word
         else {
@@ -139,7 +148,7 @@ function update(word) {
         
         if (correct === width) {
             gameOver = true;
-            document.getElementById("answer").innerText = word;
+            document.getElementById("answer").innerText = todaysWord;
         }
     }
 };
