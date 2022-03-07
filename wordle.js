@@ -93,7 +93,7 @@ function initialize() {
 
         if (!gameOver && row === height) {
             gameOver = true;
-            document.getElementById("answer").innerText = todaysWord;
+            document.getElementById("answer").innerText = `Aww, the answer is ${todaysWord}`;
         }
     })
     
@@ -153,7 +153,7 @@ function update(todaysWord) {
         
         if (correct === width) {
             gameOver = true;
-            document.getElementById("answer").innerText = todaysWord;
+            document.getElementById("answer").innerText = 'YOU DID IT! GOOD JOB!';
         }
     }
 };
