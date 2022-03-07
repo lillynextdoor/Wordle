@@ -20,8 +20,10 @@ function initialize() {
     url: 'https://wordsapiv1.p.rapidapi.com/words/',
     params: {
         random: 'true',
+        letterPattern: '^.{5}$',
         lettersMin: '5',
-        lettersMax: '5'
+        lettersMax: '5',
+        partOfSpeech:'verb'
         },
     headers: {
         'x-rapidapi-host': 'wordsapiv1.p.rapidapi.com',
