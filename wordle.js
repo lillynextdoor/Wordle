@@ -67,6 +67,9 @@ function initialize() {
         if ("KeyA" <= e.code && e.code <= "KeyZ") {
             if (col < width) {
                 let currTile = document.getElementById(row.toString() + "-" + col.toString());
+                let currRow = document.getElementById("row" + row.toString())
+                currRow.classList.remove("invalid")
+                
                 if (currTile.innerText === "") {
                     currTile.innerText = e.code[3]; // e.code returns 4 character string (KeyA). "A" is at index 3
                     col += 1; // move to next tile 

@@ -16,7 +16,7 @@ hr {
 #board {
     width: 350px;
     height: 420 px;
-    margin: 100px auto;
+    margin: 50px auto;
     margin-top: 3px;
     display: flex;
     flex-wrap: wrap;
@@ -43,21 +43,21 @@ hr {
 }
 
 .correct {
-    background-color: #619978;
+    background-color: #72b368;
     color: white;
     border-color: white;
     transition-duration: 0.5s;
 }
 
 .present {
-    background-color: #C9B458;
+    background-color: #ddc747;
     color: white;
     border-color: white;
     transition-duration: 0.5s;
 }
 
 .absent {
-    background-color: #8d8f91;
+    background-color: #a2a6a8;
     color: white;
     border-color: white;
     transition-duration: 0.5s;
