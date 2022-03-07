@@ -1,3 +1,4 @@
+
 let height = 6; //number of guesses
 let width = 5; //length of words
 
@@ -12,6 +13,27 @@ window.onload = async function() { // when a page loads, call this function
 };
 
 async function initialize() {
+    // generate today's word
+    let word = "";
+
+    const options = {
+    method: 'GET',
+    url: 'https://wordsapiv1.p.rapidapi.com/words/',
+    params: {random: 'true',
+             letters: '5'},
+    headers: {
+        'x-rapidapi-host': 'wordsapiv1.p.rapidapi.com',
+        'x-rapidapi-key': 'c0f74f441cmsh567cad65aabece8p1aad19jsn4142e09a557d'
+    }
+    };
+
+    axios.request(options).then(function (response) {
+        word = response.data.word.toUpperCase();
+        console.log('오늘의단어', word);
+    }).catch(function (error) {
+        console.error(error);
+    });
+
     // create the board
     for (let r = 0; r < height; r++) {
         for (let c = 0; c < width; c++) {
@@ -50,7 +72,7 @@ async function initialize() {
         }
 
         else if (e.code === "Enter" && col === width) {
-            update();
+            update(word);
             row += 1; // start new row
             col = 0;  // start at 0 for new row
         }
@@ -64,7 +86,7 @@ async function initialize() {
 };
 
 
-function update() {
+function update(word) {
     let correct = 0;
     for (let c = 0; c < width; c++) {
         let currTile = document.getElementById(row.toString() + '-' + c.toString());
