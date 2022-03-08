@@ -153,7 +153,7 @@ function update(todaysWord) {
         
         if (correct === width) {
             gameOver = true;
-            document.getElementById("answer").innerText = 'YOU DID IT! GOOD JOB!';
+            document.getElementById("answer").innerText = 'Congrats!';
         }
     }
 };
